@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pan.module.query.QueryReadCardController" fx:id="root"
+      alignment="TOP_CENTER"
+      prefHeight="1024" prefWidth="1280" styleClass="bg" xmlns="http://javafx.com/javafx/8.0.172-ea">
+    <children>
+        <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="30.0" prefWrapLength="0.0">
+            <children>
+                <Label mnemonicParsing="false" style="-fx-font-size: 30pt; -fx-border-color: #ffffff;" text="读卡查询"
+                       textFill="#f8f8f8">
+                    <styleClass>
+                        <String fx:value="btn-lg"/>
+                        <String fx:value="btn-success"/>
+                    </styleClass>
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/1.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <Label mnemonicParsing="false" style="-fx-font-size: 30pt; -fx-border-color: #ffffff;" text="查询结果"
+                       textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="btn-lg"/>
+                        <String fx:value="flag-primary"/>
+                    </styleClass>
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/2.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+            </children>
+        </FlowPane>
+        <HBox alignment="CENTER" cache="true" VBox.vgrow="ALWAYS">
+            <children>
+                <StackPane fx:id="pleaseCard" HBox.hgrow="ALWAYS">
+                    <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/please_card.png"/>
+                            </image>
+                        </ImageView>
+                        <Label style="-fx-font-size: 30pt;" text="请刷卡" textFill="WHITE" StackPane.alignment="CENTER">
+                            <StackPane.margin>
+                                <Insets top="300.0"/>
+                            </StackPane.margin>
+                        </Label>
+                        <Label fx:id="tip" layoutX="590.0" layoutY="485.0" style="-fx-font-size: 30pt;"
+                               styleClass="text-danger" text="" textFill="WHITE">
+                            <StackPane.margin>
+                                <Insets top="500.0"/>
+                            </StackPane.margin>
+                        </Label>
+                    </children>
+                </StackPane>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="179.0" maxHeight="-Infinity" prefHeight="50.0">
+            <children>
+                <Button onAction="#exit" mnemonicParsing="false"
+                        style="-fx-font-size: 40pt; -fx-background-color: #aabbcc;" text="取消" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../image/exit.png"/>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/bootstrapfx.css"/>
+        <URL value="@../css/main.css"/>
+    </stylesheets>
+    <padding>
+        <Insets top="100.0"/>
+    </padding>
+</VBox>

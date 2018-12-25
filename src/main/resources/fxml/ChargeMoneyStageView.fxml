@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pan.module.charge.ChargeMoneyController"
+      alignment="TOP_CENTER" prefHeight="1024"
+      prefWidth="1280" styleClass="bg" xmlns="http://javafx.com/javafx/8.0.172-ea">
+    <children>
+        <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="30.0" prefWrapLength="0.0">
+            <children>
+                <Label mnemonicParsing="false" style="-fx-font-size: 30pt; -fx-border-color: #ffffff;" text="读卡查询"
+                       textFill="#f8f8f8">
+                    <styleClass>
+                        <String fx:value="btn-lg"/>
+                        <String fx:value="flag-primary"/>
+                    </styleClass>
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/1.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <Label mnemonicParsing="false" style="-fx-font-size: 30pt; -fx-border-color: #ffffff;" text="扫码充值"
+                       textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="btn-lg"/>
+                        <String fx:value="btn-success"/>
+                    </styleClass>
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/2.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <Label mnemonicParsing="false" style="-fx-font-size: 30pt; -fx-border-color: #ffffff;" text="充值结果"
+                       textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="btn-lg"/>
+                        <String fx:value="flag-primary"/>
+                    </styleClass>
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/3.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+            </children>
+        </FlowPane>
+        <HBox alignment="CENTER" cache="true" VBox.vgrow="ALWAYS">
+            <children>
+                <VBox prefHeight="200.0">
+                    <children>
+                        <GridPane style="-fx-background-color: #0fb871; -fx-background-radius: 20px 20px 0 0;"
+                                  vgap="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0"/>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"
+                                                   prefWidth="200.0"/>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"
+                                                   prefWidth="200.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label style="-fx-font-size: 20pt;" styleClass="strong" text="余额" textFill="WHITE"/>
+                                <Label text="工号:" textFill="WHITE" GridPane.columnIndex="1">
+                                    <styleClass>
+                                        <String fx:value="strong"/>
+                                        <String fx:value="h3"/>
+                                    </styleClass>
+                                </Label>
+                                <Label text="姓名:" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <styleClass>
+                                        <String fx:value="strong"/>
+                                        <String fx:value="h3"/>
+                                    </styleClass>
+                                </Label>
+                                <Label text="卡号:" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <styleClass>
+                                        <String fx:value="strong"/>
+                                        <String fx:value="h3"/>
+                                    </styleClass>
+                                </Label>
+                                <Label fx:id="money" style="-fx-font-size: 35pt;" styleClass="strong" text="48.5"
+                                       textFill="WHITE"
+                                       GridPane.rowIndex="1" GridPane.rowSpan="2"/>
+                                <Label fx:id="userIdentifier" layoutX="340.0" layoutY="44.0" text="098345"
+                                       textFill="WHITE" GridPane.columnIndex="2">
+                                    <styleClass>
+                                        <String fx:value="strong"/>
+                                        <String fx:value="h3"/>
+                                    </styleClass>
+                                </Label>
+                                <Label fx:id="userName" layoutX="340.0" layoutY="74.0" text="潘明智" textFill="WHITE"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <styleClass>
+                                        <String fx:value="strong"/>
+                                        <String fx:value="h3"/>
+                                    </styleClass>
+                                </Label>
+                                <Label fx:id="cardId" layoutX="340.0" layoutY="104.0" style="-fx-font-size: 15pt;"
+                                       text="0000000046BE23F2" textFill="WHITE" GridPane.columnIndex="2"
+                                       GridPane.rowIndex="2">
+                                    <styleClass>
+                                        <String fx:value="strong"/>
+                                        <String fx:value="h3"/>
+                                    </styleClass>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0"/>
+                            </padding>
+                            <effect>
+                                <DropShadow color="#88f2cd"/>
+                            </effect>
+                        </GridPane>
+                        <FlowPane prefHeight="34.0" prefWidth="660.0" style="-fx-background-color: #ffffff;">
+                            <children>
+                                <Label text="请选择充值金额">
+                                    <styleClass>
+                                        <String fx:value="h1"/>
+                                        <String fx:value="text-info"/>
+                                    </styleClass>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="50.0" top="30.0"/>
+                            </padding>
+                        </FlowPane>
+                        <FlowPane hgap="50.0" layoutX="10.0" layoutY="275.0" prefHeight="200.0" prefWidth="200.0"
+                                  style="-fx-background-color: #ffffff; -fx-background-radius: 0 0 20px 20px;"
+                                  vgap="30.0">
+                            <children>
+                                <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0"
+                                        style="-fx-font-size: 20pt;" text="50 元"
+                                        onAction="#money" userData="50">
+                                    <styleClass>
+                                        <String fx:value="btn"/>
+                                        <String fx:value="btn-lg"/>
+                                    </styleClass>
+                                </Button>
+                                <Button onAction="#money" userData="100" layoutX="30.0" layoutY="30.0"
+                                        mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0"
+                                        style="-fx-font-size: 20pt;" text="100 元">
+                                    <styleClass>
+                                        <String fx:value="btn"/>
+                                        <String fx:value="btn-lg"/>
+                                    </styleClass>
+                                </Button>
+                                <Button onAction="#money" userData="200" layoutY="30.0" mnemonicParsing="false"
+                                        prefHeight="80.0" prefWidth="150.0" style="-fx-font-size: 20pt;" text="200 元">
+                                    <styleClass>
+                                        <String fx:value="btn"/>
+                                        <String fx:value="btn-lg"/>
+                                    </styleClass>
+                                </Button>
+                                <Button onAction="#money" userData="300" layoutX="266.0" layoutY="30.0"
+                                        mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0"
+                                        style="-fx-font-size: 20pt;" text="300 元">
+                                    <styleClass>
+                                        <String fx:value="btn"/>
+                                        <String fx:value="btn-lg"/>
+                                    </styleClass>
+                                </Button>
+                                <Button onAction="#money" userData="400" layoutX="384.0" layoutY="30.0"
+                                        mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0"
+                                        style="-fx-font-size: 20pt;" text="400 元">
+                                    <styleClass>
+                                        <String fx:value="btn"/>
+                                        <String fx:value="btn-lg"/>
+                                    </styleClass>
+                                </Button>
+                                <Button onAction="#money" userData="500" layoutX="30.0" layoutY="103.0"
+                                        mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0"
+                                        style="-fx-font-size: 20pt;" text="500 元">
+                                    <styleClass>
+                                        <String fx:value="btn"/>
+                                        <String fx:value="btn-lg"/>
+                                    </styleClass>
+                                </Button>
+                            </children>
+                            <padding>
+                                <Insets bottom="80.0" left="50.0" right="30.0" top="50.0"/>
+                            </padding>
+                        </FlowPane>
+                    </children>
+                    <padding>
+                        <Insets top="100.0"/>
+                    </padding>
+                    <effect>
+                        <DropShadow height="20.76" radius="9.940000000000001"/>
+                    </effect>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="179.0" maxHeight="-Infinity" prefHeight="50.0">
+            <children>
+                <Button onAction="#exit" mnemonicParsing="false"
+                        style="-fx-font-size: 30pt; -fx-background-color: #aabbcc;" text="取消" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../image/exit.png"/>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/bootstrapfx.css"/>
+        <URL value="@../css/main.css"/>
+    </stylesheets>
+    <padding>
+        <Insets top="100.0"/>
+    </padding>
+</VBox>

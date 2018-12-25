@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:jtds:sqlserver://127.0.0.1:1433/onecard
+    driver-class-name: net.sourceforge.jtds.jdbc.Driver
+    username: sa
+    password: 1
+    hikari:
+      connection-test-query: select 1
+      connection-timeout: 10000
+      maximum-pool-size: 10
+      minimum-idle: 1
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  thymeleaf:
+    cache: false
+  jmx:
+    enabled: false
