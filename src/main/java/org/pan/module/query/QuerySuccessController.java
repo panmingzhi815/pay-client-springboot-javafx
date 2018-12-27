@@ -12,20 +12,25 @@ import javafx.scene.layout.VBox;
 import lombok.extern.slf4j.Slf4j;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.Application;
+import org.pan.ViewEvent;
 import org.pan.bean.ConsumptionRecord;
 import org.pan.bean.ConsumptionWallet;
 import org.pan.bean.PhysicalCard;
 import org.pan.module.MainStageView;
+import org.pan.module.TimeOutViewManager;
+import org.pan.module.charge.ChargeReadCardStageView;
 import org.pan.repository.ConsumptionRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.*;
 
 /**
  * @author panmingzhi
@@ -41,6 +46,9 @@ public class QuerySuccessController {
     public Label cardId;
     @Autowired
     private ConsumptionRecordRepository consumptionRecordRepository;
+
+    @Autowired
+    private TimeOutViewManager timeOutViewManager;
 
     @Subscribe
     public void onMessageEvent(PhysicalCard event) throws InterruptedException {
@@ -61,8 +69,11 @@ public class QuerySuccessController {
                 recordBox.getChildren().add(flowPane);
             }
         });
+    }
 
-
+    @PostConstruct
+    public void init(){
+        timeOutViewManager.register(QuerySuccessStageView.class, MainStageView.class, 60);
     }
 
     private FlowPane getFlowPane(ConsumptionRecord consumptionRecord) {
@@ -86,8 +97,7 @@ public class QuerySuccessController {
         return flowPane;
     }
 
-
     public void exit(ActionEvent actionEvent) {
-        Application.showView(MainStageView.class);
+        Application.switchView(QuerySuccessStageView.class, MainStageView.class, null);
     }
 }

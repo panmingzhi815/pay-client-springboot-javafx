@@ -1,16 +1,22 @@
 package org.pan.module;
 
 import de.felixroske.jfxsupport.FXMLController;
+import de.felixroske.jfxsupport.GUIState;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import lombok.extern.slf4j.Slf4j;
 import org.pan.Application;
 import org.pan.module.charge.ChargeReadCardStageView;
+import org.pan.module.charge.ShowQrCodeStageView;
 import org.pan.module.query.QueryReadCardStageView;
 
 import javax.annotation.PostConstruct;

@@ -4,6 +4,7 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -17,13 +18,17 @@ import org.pan.Application;
 import org.pan.ViewEvent;
 import org.pan.bean.PhysicalCard;
 import org.pan.module.MainStageView;
+import org.pan.module.TimeOutViewManager;
 import org.pan.repository.PhysicalCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,6 +40,9 @@ public class ChargeReadCardController implements Initializable {
 
     @Autowired
     public PhysicalCardRepository physicalCardRepository;
+    @Autowired
+    private TimeOutViewManager timeOutViewManager;
+
     public StackPane pleaseCard;
     public VBox root;
     public Label tip;
@@ -66,6 +74,11 @@ public class ChargeReadCardController implements Initializable {
         });
     }
 
+    @PostConstruct
+    public void init(){
+        timeOutViewManager.register(ChargeReadCardStageView.class, MainStageView.class, 60);
+    }
+
     @Subscribe
     public void showEvent(ViewEvent viewEvent) {
         if (viewEvent.isPresent(ViewEvent.ViewEvenType.show, this)) {
@@ -89,6 +102,11 @@ public class ChargeReadCardController implements Initializable {
                 });
             }
         });
+    }
+
+    @PreDestroy
+    public void destroy(){
+        executorService.shutdown();
     }
 
     public void exit(ActionEvent actionEvent) {

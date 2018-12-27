@@ -8,4 +8,5 @@ import de.felixroske.jfxsupport.FXMLView;
  */
 @FXMLView(value = "/fxml/ChargeMoneyStageView.fxml")
 public class ChargeMoneyStageView extends AbstractFxmlView {
+
 }

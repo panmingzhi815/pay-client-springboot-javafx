@@ -6,6 +6,6 @@ import de.felixroske.jfxsupport.FXMLView;
 /**
  * @author panmingzhi
  */
-@FXMLView(value = "/fxml/ShowQrCodeStageView.fxml")
+@FXMLView(value = "/fxml/ShowQrCodeStageView.fxml",stageStyle = "TRANSPARENT")
 public class ShowQrCodeStageView extends AbstractFxmlView {
 }

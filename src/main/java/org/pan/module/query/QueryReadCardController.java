@@ -17,14 +17,18 @@ import org.pan.Application;
 import org.pan.ViewEvent;
 import org.pan.bean.PhysicalCard;
 import org.pan.module.MainStageView;
+import org.pan.module.TimeOutViewManager;
 import org.pan.module.charge.ChargeReadCardStageView;
 import org.pan.repository.PhysicalCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -41,6 +45,8 @@ public class QueryReadCardController implements Initializable {
     public Label tip;
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private StringBuilder cardBuilder = new StringBuilder(32);
+    @Autowired
+    private TimeOutViewManager timeOutViewManager;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,6 +71,16 @@ public class QueryReadCardController implements Initializable {
                 }
             }
         });
+    }
+
+    @PostConstruct
+    public void init(){
+        timeOutViewManager.register(QueryReadCardStageView.class, MainStageView.class, 60);
+    }
+
+    @PreDestroy
+    public void destroy(){
+        executorService.shutdown();
     }
 
     private void validCard(String card) {
@@ -93,6 +109,6 @@ public class QueryReadCardController implements Initializable {
     }
 
     public void exit(ActionEvent actionEvent) {
-        Application.switchView(ChargeReadCardStageView.class, MainStageView.class, null);
+        Application.switchView(QueryReadCardStageView.class, MainStageView.class, null);
     }
 }

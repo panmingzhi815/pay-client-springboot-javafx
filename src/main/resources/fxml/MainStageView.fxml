@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="1024" prefWidth="1280" style="-fx-padding: 100;"
-      styleClass="bg" xmlns="http://javafx.com/javafx/8.0.172-ea"
-      fx:controller="org.pan.module.MainController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="1024" prefWidth="1280" style="-fx-padding: 100;" styleClass="bg" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pan.module.MainController">
     <children>
         <HBox>
             <children>
@@ -16,76 +21,73 @@
                     <children>
                         <Label styleClass="font-55" text="自助充值系统">
                             <effect>
-                                <Glow level="0.55"/>
+                                <Glow level="0.55" />
                             </effect>
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../image/alipay.png"/>
+                                <Image url="@../image/alipay.png" />
                             </image>
                             <FlowPane.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </FlowPane.margin>
                         </ImageView>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../image/weixin.png"/>
+                                <Image url="@../image/weixin.png" />
                             </image>
                             <FlowPane.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </FlowPane.margin>
                         </ImageView>
                     </children>
                 </FlowPane>
                 <VBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label fx:id="time" alignment="CENTER_RIGHT" styleClass="font-30" text="13:59:23"/>
-                        <Label fx:id="date" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" styleClass="font-30"
-                               text="2018年1月1日 星期一"/>
+                        <Label fx:id="time" alignment="CENTER_RIGHT" styleClass="font-30" text="13:59:23" />
+                        <Label fx:id="date" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" styleClass="font-30" text="2018年1月1日 星期一" />
                     </children>
                 </VBox>
             </children>
         </HBox>
         <GridPane hgap="50.0">
             <VBox.margin>
-                <Insets top="100.0"/>
+                <Insets top="100.0" />
             </VBox.margin>
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0"/>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <HBox fx:id="btn_charge" alignment="CENTER" prefHeight="300.0" style="-fx-padding: 10;"
-                      styleClass="btn-success" GridPane.vgrow="ALWAYS">
+                <HBox fx:id="btn_charge" alignment="CENTER" prefHeight="300.0" style="-fx-padding: 10;" styleClass="btn-success" GridPane.vgrow="ALWAYS">
                     <children>
                         <VBox alignment="CENTER_LEFT" spacing="30.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label styleClass="font-55" text="自助充值" textFill="WHITE"/>
-                                <Label styleClass="font-20" text="微信/支付宝 扫码在线充值" textFill="WHITE"/>
+                                <Label styleClass="font-55" text="自助充值" textFill="WHITE" />
+                                <Label styleClass="font-20" text="微信/支付宝 扫码在线充值" textFill="WHITE" />
                             </children>
                         </VBox>
                         <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../image/money.png"/>
+                                <Image url="@../image/money.png" />
                             </image>
                         </ImageView>
                     </children>
                 </HBox>
-                <HBox fx:id="btn_search" alignment="CENTER" prefHeight="300.0" style="-fx-padding: 10;"
-                      styleClass="btn-primary" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
+                <HBox fx:id="btn_search" alignment="CENTER" prefHeight="300.0" style="-fx-padding: 10;" styleClass="btn-primary" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
                     <children>
                         <VBox alignment="CENTER_LEFT" spacing="30.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label styleClass="font-55" text="余额查询" textFill="WHITE"/>
-                                <Label styleClass="font-20" text="实时查询历史消费记录" textFill="WHITE"/>
+                                <Label styleClass="font-55" text="余额查询" textFill="WHITE" />
+                                <Label styleClass="font-20" text="实时查询历史消费记录" textFill="WHITE" />
                             </children>
                         </VBox>
                         <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../image/Booking-history.png"/>
+                                <Image url="@../image/Booking-history.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -94,7 +96,7 @@
         </GridPane>
     </children>
     <stylesheets>
-        <URL value="@../css/bootstrapfx.css"/>
-        <URL value="@../css/main.css"/>
+        <URL value="@../css/bootstrapfx.css" />
+        <URL value="@../css/main.css" />
     </stylesheets>
 </VBox>
