@@ -15,31 +15,39 @@ import lombok.extern.slf4j.Slf4j;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.Application;
+import org.pan.ViewEvent;
 import org.pan.bean.ConsumptionWallet;
 import org.pan.bean.OrderInfo;
 import org.pan.bean.PhysicalCard;
 import org.pan.module.MainStageView;
+import org.pan.module.TimeOutViewManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author panmingzhi
  */
 @FXMLController
 @Slf4j
-public class ChargeMoneyController implements Initializable {
+public class ChargeMoneyController {
     public Label userIdentifier;
     public Label userName;
     public Label cardId;
     public Label money;
 
+    private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     @Autowired
-    private ShowQrCodeStageView showQrCodeStageView;
+    private TimeOutViewManager timeOutViewManager;
 
     public void exit(ActionEvent actionEvent) {
         Application.showView(MainStageView.class);
@@ -50,23 +58,15 @@ public class ChargeMoneyController implements Initializable {
         String money = (String) node.getUserData();
         log.debug("选择充值金额:{}", money);
 
-
-//        Stage stage = new Stage(StageStyle.TRANSPARENT);
-//        Scene value = new Scene(showQrCodeStageView.getView());
-//        value.setFill(null);
-//        stage.setScene(value);
-//        stage.initModality(Modality.WINDOW_MODAL);
-//        stage.initOwner(GUIState.getStage());
-//        stage.show();
-
         OrderInfo orderInfo = OrderInfo.builder().money(Double.valueOf(money)).build();
-
-        Application.switchView(ChargeMoneyStageView.class,ShowQrCodeStageView.class,orderInfo);
+        timeOutViewManager.setCurrentLeft(-1);
+        Application.showView(ShowQrCodeStageView.class, Modality.WINDOW_MODAL);
+        timeOutViewManager.setCurrentLeft(60);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    @PostConstruct
+    public void init(){
+        timeOutViewManager.register(ChargeMoneyStageView.class, MainStageView.class, 60);
     }
 
     @Subscribe
