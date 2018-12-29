@@ -150,7 +150,7 @@
         <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="179.0" maxHeight="-Infinity" prefHeight="50.0">
             <children>
                 <Button mnemonicParsing="false" onAction="#exit"
-                        style="-fx-font-size: 30pt; -fx-background-color: #aabbcc;" text="取消" textFill="WHITE">
+                        style="-fx-font-size: 30pt; -fx-background-color: #aabbcc;" text="取消" textFill="RED">
                     <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                             <Image url="@../image/exit.png"/>

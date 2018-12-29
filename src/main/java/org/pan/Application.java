@@ -6,7 +6,6 @@ import de.felixroske.jfxsupport.FXMLView;
 import de.felixroske.jfxsupport.GUIState;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -20,7 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.module.MainStageView;
 import org.pan.module.TimeOutViewManager;
-import org.pan.module.charge.ShowQrCodeStageView;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -57,14 +55,14 @@ public class Application extends AbstractJavaFxApplicationSupport {
             newScene.setFill(null);
         }
 
-        if(GUIState.getScene().getRoot().getEffect() == null){
+        if (GUIState.getScene().getRoot().getEffect() == null) {
             Lighting value = new Lighting();
             value.setDiffuseConstant(1.0);
             value.setSpecularConstant(2.0);
             value.setSpecularExponent(40.0);
             value.setSurfaceScale(0);
             GUIState.getScene().getRoot().setEffect(value);
-        }else{
+        } else {
             Lighting effect = (Lighting) GUIState.getScene().getRoot().getEffect();
             effect.setDiffuseConstant(1.0);
         }
@@ -101,14 +99,14 @@ public class Application extends AbstractJavaFxApplicationSupport {
 
             if (bus.isRegistered(fromViewer.getPresenter())) {
                 log.debug("发布隐藏事件");
-                bus.post(new ViewEvent(ViewEvent.ViewEvenType.hide, fromViewer,fromViewer.getPresenter()));
+                bus.post(new ViewEvent(ViewEvent.ViewEvenType.hide, fromViewer, fromViewer.getPresenter()));
             }
 
             AbstractJavaFxApplicationSupport.showView(to);
 
             if (bus.isRegistered(toViewer.getPresenter())) {
                 log.debug("发布显示事件");
-                bus.post(new ViewEvent(ViewEvent.ViewEvenType.show, toViewer,toViewer.getPresenter()));
+                bus.post(new ViewEvent(ViewEvent.ViewEvenType.show, toViewer, toViewer.getPresenter()));
             }
 
             if (object != null) {

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <?import java.net.URL?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pan.module.charge.ChargeReadCardController" fx:id="root"
-      alignment="TOP_CENTER"
-      prefHeight="1024" prefWidth="1280" styleClass="bg" xmlns="http://javafx.com/javafx/8.0.172-ea">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" alignment="TOP_CENTER" prefHeight="1024" prefWidth="1280"
+      styleClass="bg" xmlns="http://javafx.com/javafx/8.0.172-ea"
+      fx:controller="org.pan.module.charge.ChargeReadCardController">
     <children>
         <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="30.0" prefWrapLength="0.0">
             <children>
@@ -82,8 +82,8 @@
         </HBox>
         <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="179.0" maxHeight="-Infinity" prefHeight="50.0">
             <children>
-                <Button onAction="#exit" mnemonicParsing="false"
-                        style="-fx-font-size: 40pt; -fx-background-color: #aabbcc;" text="取消" textFill="WHITE">
+                <Button mnemonicParsing="false" onAction="#exit"
+                        style="-fx-font-size: 40pt; -fx-background-color: #aabbcc;" text="取消" textFill="RED">
                     <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                             <Image url="@../image/exit.png"/>

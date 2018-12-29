@@ -4,7 +4,6 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -28,7 +27,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,12 +38,11 @@ public class ChargeReadCardController implements Initializable {
 
     @Autowired
     public PhysicalCardRepository physicalCardRepository;
-    @Autowired
-    private TimeOutViewManager timeOutViewManager;
-
     public StackPane pleaseCard;
     public VBox root;
     public Label tip;
+    @Autowired
+    private TimeOutViewManager timeOutViewManager;
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private StringBuilder cardBuilder = new StringBuilder(32);
 
@@ -75,7 +72,7 @@ public class ChargeReadCardController implements Initializable {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         timeOutViewManager.register(ChargeReadCardStageView.class, MainStageView.class, 60);
     }
 
@@ -105,7 +102,7 @@ public class ChargeReadCardController implements Initializable {
     }
 
     @PreDestroy
-    public void destroy(){
+    public void destroy() {
         executorService.shutdown();
     }
 

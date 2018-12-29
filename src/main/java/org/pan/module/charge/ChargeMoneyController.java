@@ -1,21 +1,14 @@
 package org.pan.module.charge;
 
 import de.felixroske.jfxsupport.FXMLController;
-import de.felixroske.jfxsupport.GUIState;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.Application;
-import org.pan.ViewEvent;
 import org.pan.bean.ConsumptionWallet;
 import org.pan.bean.OrderInfo;
 import org.pan.bean.PhysicalCard;
@@ -24,15 +17,11 @@ import org.pan.module.TimeOutViewManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author panmingzhi
@@ -65,7 +54,7 @@ public class ChargeMoneyController {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         timeOutViewManager.register(ChargeMoneyStageView.class, MainStageView.class, 60);
     }
 

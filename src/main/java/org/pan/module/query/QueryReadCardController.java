@@ -18,7 +18,6 @@ import org.pan.ViewEvent;
 import org.pan.bean.PhysicalCard;
 import org.pan.module.MainStageView;
 import org.pan.module.TimeOutViewManager;
-import org.pan.module.charge.ChargeReadCardStageView;
 import org.pan.repository.PhysicalCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,7 +27,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -74,12 +72,12 @@ public class QueryReadCardController implements Initializable {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         timeOutViewManager.register(QueryReadCardStageView.class, MainStageView.class, 60);
     }
 
     @PreDestroy
-    public void destroy(){
+    public void destroy() {
         executorService.shutdown();
     }
 
