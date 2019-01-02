@@ -41,14 +41,12 @@ public class Application extends AbstractJavaFxApplicationSupport {
         launch(Application.class, MainStageView.class, new CustomSplash(), args);
     }
 
-    public static void showView(final Class<? extends AbstractFxmlView> window, final Modality mode) {
+    public static void showView(final Class<? extends AbstractFxmlView> window, final Modality mode,Object object) {
         final AbstractFxmlView view = context.getBean(window);
         Stage newStage = new Stage();
 
         Scene newScene;
         if (view.getView().getScene() != null) {
-            // This view was already shown so
-            // we have a scene for it and use this one.
             newScene = view.getView().getScene();
         } else {
             newScene = new Scene(view.getView());
@@ -67,6 +65,12 @@ public class Application extends AbstractJavaFxApplicationSupport {
             effect.setDiffuseConstant(1.0);
         }
 
+        if (!bus.isRegistered(view.getPresenter())) {
+            bus.register(view.getPresenter());
+            log.info("registered:{}", view.getPresenter().getClass());
+        }
+
+
         FXMLView annotation = window.getAnnotation(FXMLView.class);
 
         newStage.setScene(newScene);
@@ -74,6 +78,16 @@ public class Application extends AbstractJavaFxApplicationSupport {
         newStage.initOwner(getStage());
         newStage.setTitle(annotation.title());
         newStage.initStyle(StageStyle.valueOf(annotation.stageStyle()));
+
+        newStage.setOnShown(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if (object != null) {
+                    log.debug("跳转参数:{}", object);
+                    bus.post(object);
+                }
+            }
+        });
 
         newStage.showAndWait();
     }

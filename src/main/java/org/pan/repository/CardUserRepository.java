@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CardUserRepository extends CrudRepository<CardUser, Long> {
+
+    public CardUser findByIdentifier(String identifier);
 }

@@ -26,6 +26,6 @@ public class ChargeSuccessController {
 
     @PostConstruct
     public void init() {
-        timeOutViewManager.register(ChargeSuccessStageView.class, MainStageView.class, 60);
+        timeOutViewManager.register(ChargeSuccessStageView.class, MainStageView.class, 10);
     }
 }

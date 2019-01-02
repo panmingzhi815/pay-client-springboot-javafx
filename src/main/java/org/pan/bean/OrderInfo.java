@@ -1,7 +1,9 @@
 package org.pan.bean;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,15 +14,15 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "OrderInfo")
-@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //业务编号
-    private String bizNO;
-    //交易编号
-    private String tradeNO;
+    //订单编号
+    private String orderId;
     //用户编号
     private String userNO;
     //用户姓名
@@ -33,4 +35,6 @@ public class OrderInfo {
     private Date createTime;
     //终端编号
     private String deviceNO;
+    //订单成功状态
+    private Boolean orderSuccess = false;
 }

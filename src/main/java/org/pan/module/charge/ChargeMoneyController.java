@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import lombok.extern.slf4j.Slf4j;
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.Application;
 import org.pan.bean.ConsumptionWallet;
@@ -47,9 +48,15 @@ public class ChargeMoneyController {
         String money = (String) node.getUserData();
         log.debug("选择充值金额:{}", money);
 
-        OrderInfo orderInfo = OrderInfo.builder().money(Double.valueOf(money)).build();
+        OrderInfo orderInfo = OrderInfo.builder()
+                .money(Double.valueOf(money))
+                .userNO(userIdentifier.getText().trim())
+                .userCard(cardId.getText().trim())
+                .userName(userName.getText().trim())
+                .build();
+
         timeOutViewManager.setCurrentLeft(-1);
-        Application.showView(ShowQrCodeStageView.class, Modality.WINDOW_MODAL);
+        Application.showView(ShowQrCodeStageView.class, Modality.WINDOW_MODAL,orderInfo);
         timeOutViewManager.setCurrentLeft(60);
     }
 
@@ -61,14 +68,15 @@ public class ChargeMoneyController {
     @Subscribe
     public void onMessageEvent(PhysicalCard event) throws InterruptedException {
         log.info("卡片信息：{}", event);
-        Platform.runLater(() -> {
-            userIdentifier.setText(event.getCardUser().getIdentifier());
-            userName.setText(event.getCardUser().getName());
-            cardId.setText(event.getPhysicalId());
-
+        executorService.submit(()->{
             List<ConsumptionWallet> consumptionWallets = Optional.ofNullable(event.getCardUser()).map(m -> m.getWalletList()).orElse(Arrays.asList());
             Double leftMoney = consumptionWallets.stream().filter(f -> f.getName().equals("充值")).findFirst().map(m -> m.getLeftMoney()).orElse(0D);
-            money.setText(String.valueOf(leftMoney));
+            Platform.runLater(() -> {
+                userIdentifier.setText(event.getCardUser().getIdentifier());
+                userName.setText(event.getCardUser().getName());
+                cardId.setText(event.getPhysicalId());
+                money.setText(String.valueOf(leftMoney));
+            });
         });
     }
 

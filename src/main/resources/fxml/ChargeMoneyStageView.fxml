@@ -145,7 +145,7 @@
                                   vgap="30.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#money" prefHeight="80.0" prefWidth="150.0"
-                                        style="-fx-font-size: 20pt;" text="50 元" userData="50">
+                                        style="-fx-font-size: 20pt;" text="0.01 元" userData="0.01">
                                     <styleClass>
                                         <String fx:value="btn"/>
                                         <String fx:value="btn-lg"/>

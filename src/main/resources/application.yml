@@ -19,3 +19,10 @@ spring:
     cache: false
   jmx:
     enabled: false
+
+dongyun:
+  buildingId: 7e257819d2764bb6aa5c1fd43baf2f71
+  serverUrl:  http://pay.dongluhitec.net
+  appId:  1
+  appSecret:  1
+  deviceName: 10001充值机
