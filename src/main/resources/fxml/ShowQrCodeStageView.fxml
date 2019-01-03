@@ -73,7 +73,8 @@
         </HBox>
         <HBox alignment="CENTER" layoutX="10.0" layoutY="587.0" minHeight="80.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#close" stylesheets="@../css/bootstrapfx.css" text="取消支付">
+                <Button fx:id="close" mnemonicParsing="false" onAction="#close" stylesheets="@../css/bootstrapfx.css"
+                        text="取消支付">
                     <styleClass>
                         <String fx:value="btn-lg"/>
                         <String fx:value="btn"/>

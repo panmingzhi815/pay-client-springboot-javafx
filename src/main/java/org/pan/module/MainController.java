@@ -8,10 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.pan.Application;
 import org.pan.module.charge.ChargeReadCardStageView;
 import org.pan.module.query.QueryReadCardStageView;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.annotation.PostConstruct;
 import java.net.URL;
@@ -28,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 @FXMLController
 @Slf4j
+@ConfigurationProperties(prefix = "dongyun")
 public class MainController implements Initializable {
 
     @FXML
@@ -38,6 +42,16 @@ public class MainController implements Initializable {
     public HBox btn_charge;
     @FXML
     public HBox btn_search;
+    @FXML
+    public Label lbl_serviceTel;
+    @FXML
+    public Label lbl_deviceName;
+
+    @Setter
+    private String serviceTel;
+    @Setter
+    private String deviceName;
+
 
     private ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
 
@@ -69,5 +83,8 @@ public class MainController implements Initializable {
                 date.setText(now.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日 EEE")));
             });
         }, 1000, 1000, TimeUnit.MILLISECONDS);
+
+        lbl_serviceTel.setText(Strings.isNotEmpty(serviceTel) ? ("服务电话 : " + serviceTel) : "");
+        lbl_deviceName.setText(Strings.isNotEmpty(deviceName) ? ("终端编号 : " + deviceName) : "");
     }
 }

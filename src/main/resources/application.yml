@@ -25,4 +25,8 @@ dongyun:
   serverUrl:  http://pay.dongluhitec.net
   appId:  1
   appSecret:  1
-  deviceName: 10001充值机
+  mqttServer: tcp://mqtt.dongluhitec.net:1883
+  mqttUserName: dongyunsmart
+  mqttPassword: smart@512809
+  serviceTel: 0755-26992770
+  deviceName: TW10001

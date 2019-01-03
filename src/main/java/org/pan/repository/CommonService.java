@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Consts;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -42,7 +44,8 @@ public class CommonService {
     private ConsumptionWalletRepository consumptionWalletRepository;
     @Autowired
     private ConsumptionRecordRepository consumptionRecordRepository;
-
+    @Autowired
+    private RequestConfig requestConfig;
     @Setter
     private String buildingId;
     @Setter
@@ -70,9 +73,7 @@ public class CommonService {
         }
 
         ConsumptionWallet consumptionWallet = first.get();
-        Double v = consumptionWallet.getLeftMoney() * 100;
-        Double v1 = byOrOrderId.getMoney() * 100;
-        consumptionWallet.setLeftMoney((v.intValue() + v1.intValue()) / 100.0);
+        consumptionWallet.setLeftMoney(add(consumptionWallet.getLeftMoney(),byOrOrderId.getMoney()));
         consumptionWalletRepository.save(consumptionWallet);
 
         ConsumptionRecord consumptionRecord = ConsumptionRecord.builder()
@@ -87,6 +88,7 @@ public class CommonService {
         consumptionRecordRepository.save(consumptionRecord);
 
         HttpPost httpPost = new HttpPost(serverUrl + "/order/rechargeMachine_update.action");
+        httpPost.setConfig(requestConfig);
         httpPost.addHeader("Content-type", "application/x-www-form-urlencoded");
         List<NameValuePair> parameters = new ArrayList<>();
         parameters.add(new BasicNameValuePair("orderId",orderId));
@@ -104,4 +106,11 @@ public class CommonService {
             }
         }
     }
+
+    public static double add(double v1, double v2) {
+        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        return b1.add(b2).doubleValue();
+    }
+
 }

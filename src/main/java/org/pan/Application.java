@@ -15,12 +15,14 @@ import javafx.stage.WindowEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.commons.lang3.time.StopWatch;
+import org.apache.http.client.config.RequestConfig;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.module.MainStageView;
 import org.pan.module.TimeOutViewManager;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -65,7 +67,7 @@ public class Application extends AbstractJavaFxApplicationSupport {
             effect.setDiffuseConstant(1.0);
         }
 
-        if (!bus.isRegistered(view.getPresenter())) {
+        if (!bus.isRegistered(view.getPresenter()) && hasSubscribe(view.getPresenter())) {
             bus.register(view.getPresenter());
             log.info("registered:{}", view.getPresenter().getClass());
         }
@@ -163,6 +165,14 @@ public class Application extends AbstractJavaFxApplicationSupport {
     @Override
     public Collection<Image> loadDefaultIcons() {
         return Arrays.asList(new Image(this.getClass().getResourceAsStream("/image/logo.png")));
+    }
+
+    @Bean
+    public RequestConfig requestConfig(){
+        return RequestConfig.custom()
+                .setSocketTimeout(8000)
+                .setConnectTimeout(8000)
+                .setConnectionRequestTimeout(8000).build();
     }
 
 }
