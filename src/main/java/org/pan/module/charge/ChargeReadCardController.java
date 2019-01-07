@@ -10,8 +10,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.Application;
 import org.pan.ViewEvent;
@@ -20,10 +22,12 @@ import org.pan.module.MainStageView;
 import org.pan.module.TimeOutViewManager;
 import org.pan.repository.PhysicalCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -46,6 +50,7 @@ public class ChargeReadCardController implements Initializable {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private StringBuilder cardBuilder = new StringBuilder(32);
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         executorService.scheduleWithFixedDelay(() -> {
@@ -58,7 +63,11 @@ public class ChargeReadCardController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER && cardBuilder.length() > 0) {
-                    String card = StringUtils.leftPad(cardBuilder.toString().toUpperCase(), 16, "0");
+                    String upperCase = cardBuilder.toString().toUpperCase();
+                    if(NumberUtils.isDigits(upperCase)){
+                        upperCase = Integer.toHexString(Integer.valueOf(upperCase)).toUpperCase();
+                    }
+                    String card = StringUtils.leftPad(upperCase, 16, "0");
                     log.info("卡片内码:{}", card);
                     cardBuilder.delete(0, cardBuilder.length());
                     validCard(card);
@@ -69,6 +78,7 @@ public class ChargeReadCardController implements Initializable {
                 }
             }
         });
+
     }
 
     @PostConstruct

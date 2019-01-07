@@ -93,12 +93,9 @@
         </GridPane>
         <HBox alignment="CENTER" layoutX="110.0" layoutY="110.0" VBox.vgrow="ALWAYS">
             <children>
-                <VBox alignment="BOTTOM_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+                <VBox fx:id="detailBox" alignment="BOTTOM_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label fx:id="lbl_serviceTel" alignment="CENTER_RIGHT" styleClass="font-20"
-                               text="服务电话 : 0755-26992770"/>
-                        <Label fx:id="lbl_deviceName" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0"
-                               styleClass="font-20" text="终端编号 : TW1001"/>
+
                     </children>
                 </VBox>
             </children>

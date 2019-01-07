@@ -112,8 +112,6 @@ public class ShowQrCodeController implements Initializable {
         log.info("serverUrl:{}", serverUrl);
         log.info("appId:{}", appId);
         log.info("appSecret:{}", appSecret);
-
-
     }
 
     public void close(ActionEvent actionEvent) {

@@ -5,9 +5,11 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
@@ -46,12 +48,14 @@ public class MainController implements Initializable {
     public Label lbl_serviceTel;
     @FXML
     public Label lbl_deviceName;
+    public VBox detailBox;
 
     @Setter
     private String serviceTel;
     @Setter
     private String deviceName;
-
+    @Setter
+    private String deviceVersion;
 
     private ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
 
@@ -84,7 +88,25 @@ public class MainController implements Initializable {
             });
         }, 1000, 1000, TimeUnit.MILLISECONDS);
 
-        lbl_serviceTel.setText(Strings.isNotEmpty(serviceTel) ? ("服务电话 : " + serviceTel) : "");
-        lbl_deviceName.setText(Strings.isNotEmpty(deviceName) ? ("终端编号 : " + deviceName) : "");
+        if (Strings.isNotEmpty(serviceTel)){
+            Label label = new Label("服务电话 : " + serviceTel);
+            label.setAlignment(Pos.CENTER_RIGHT);
+            label.getStyleClass().add("font-20");
+            detailBox.getChildren().add(label);
+        }
+
+        if(Strings.isNotEmpty(deviceName)){
+            Label label = new Label("终端编号 : " + deviceName);
+            label.setAlignment(Pos.CENTER_RIGHT);
+            label.getStyleClass().add("font-20");
+            detailBox.getChildren().add(label);
+        }
+
+        if(Strings.isNotEmpty(deviceVersion)){
+            Label label = new Label("终端版本 : " + deviceVersion);
+            label.setAlignment(Pos.CENTER_RIGHT);
+            label.getStyleClass().add("font-20");
+            detailBox.getChildren().add(label);
+        }
     }
 }

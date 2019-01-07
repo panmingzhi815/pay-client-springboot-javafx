@@ -3,9 +3,15 @@ package org.pan.module.charge;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -16,11 +22,14 @@ import org.pan.bean.PhysicalCard;
 import org.pan.module.MainStageView;
 import org.pan.module.TimeOutViewManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.annotation.PostConstruct;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -29,15 +38,20 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 @FXMLController
 @Slf4j
-public class ChargeMoneyController {
+@ConfigurationProperties(prefix = "dongyun")
+public class ChargeMoneyController implements Initializable {
     public Label userIdentifier;
     public Label userName;
     public Label cardId;
     public Label money;
+    public FlowPane buttons;
 
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     @Autowired
     private TimeOutViewManager timeOutViewManager;
+
+    @Setter
+    private List<Float> moneys;
 
     public void exit(ActionEvent actionEvent) {
         Application.showView(MainStageView.class);
@@ -63,6 +77,7 @@ public class ChargeMoneyController {
     @PostConstruct
     public void init() {
         timeOutViewManager.register(ChargeMoneyStageView.class, MainStageView.class, 60);
+        log.info("moneys:{}", moneys);
     }
 
     @Subscribe
@@ -80,4 +95,31 @@ public class ChargeMoneyController {
         });
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if(moneys == null) {
+            moneys = Arrays.asList(50F,100F,200F,300F,400F,500F);
+        }
+        for (int i = 0; i < moneys.size() && i < 6; i++) {
+            Float aFloat = moneys.get(i);
+            Button button = new Button(aFloat.floatValue() + "元");
+            button.setUserData(String.valueOf(aFloat));
+            button.getStyleClass().add("btn");
+            button.getStyleClass().add("btn-lg");
+            button.getStyleClass().add("font-20");
+
+            button.setEffect(new DropShadow());
+
+            button.setPrefHeight(80);
+            button.setPrefWidth(150);
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    money(event);
+                }
+            });
+
+            buttons.getChildren().add(button);
+        }
+    }
 }
