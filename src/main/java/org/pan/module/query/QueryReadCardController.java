@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.greenrobot.eventbus.Subscribe;
 import org.pan.Application;
 import org.pan.ViewEvent;
@@ -58,7 +59,11 @@ public class QueryReadCardController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER && cardBuilder.length() > 0) {
-                    String card = StringUtils.leftPad(cardBuilder.toString().toUpperCase(), 16, "0");
+                    String upperCase = cardBuilder.toString().toUpperCase();
+                    if(NumberUtils.isDigits(upperCase)){
+                        upperCase = Long.toHexString(Long.valueOf(upperCase)).toUpperCase();
+                    }
+                    String card = StringUtils.leftPad(upperCase, 16, "0");
                     log.info("卡片内码:{}", card);
                     cardBuilder.delete(0, cardBuilder.length());
                     validCard(card);

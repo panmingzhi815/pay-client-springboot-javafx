@@ -81,6 +81,7 @@ public class QuerySuccessController {
         flowPane.setHgap(80.0);
 
         Label label = new Label(consumptionRecord.getConsumptionRecordEnum());
+        label.setPrefWidth(100);
         ObservableList<String> styleClass = label.getStyleClass();
         styleClass.add("alert-success");
 

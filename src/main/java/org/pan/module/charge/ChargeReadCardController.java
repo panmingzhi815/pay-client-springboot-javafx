@@ -65,7 +65,7 @@ public class ChargeReadCardController implements Initializable {
                 if (event.getCode() == KeyCode.ENTER && cardBuilder.length() > 0) {
                     String upperCase = cardBuilder.toString().toUpperCase();
                     if(NumberUtils.isDigits(upperCase)){
-                        upperCase = Integer.toHexString(Integer.valueOf(upperCase)).toUpperCase();
+                        upperCase = Long.toHexString(Long.valueOf(upperCase)).toUpperCase();
                     }
                     String card = StringUtils.leftPad(upperCase, 16, "0");
                     log.info("卡片内码:{}", card);
