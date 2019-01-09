@@ -35,7 +35,7 @@ import java.util.Collection;
 @SpringBootApplication
 public class Application extends AbstractJavaFxApplicationSupport {
 
-    private static ConfigurableApplicationContext context;
+    public static ConfigurableApplicationContext context;
     private static EventBus bus = EventBus.builder().build();
 
     public static void main(String[] args) {
@@ -132,7 +132,7 @@ public class Application extends AbstractJavaFxApplicationSupport {
 
             log.debug("跳转页面耗时:{}", started.getTime());
         } catch (Exception e) {
-
+            log.error("跳转页面异常",e);
         }
     }
 

@@ -57,7 +57,7 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <HBox fx:id="btn_charge" alignment="CENTER" prefHeight="300.0" style="-fx-padding: 10;"
+                <HBox id="btn_charge" fx:id="btn_charge" alignment="CENTER" prefHeight="300.0" style="-fx-padding: 10;"
                       styleClass="btn-success" GridPane.vgrow="ALWAYS">
                     <children>
                         <VBox alignment="CENTER_LEFT" spacing="30.0" HBox.hgrow="ALWAYS">

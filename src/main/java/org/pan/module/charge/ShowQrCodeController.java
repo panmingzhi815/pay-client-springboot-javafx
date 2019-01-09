@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Cleanup;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Consts;
@@ -76,6 +77,7 @@ public class ShowQrCodeController implements Initializable {
     @Setter
     private String buildingId;
     @Setter
+    @Getter
     private String serverUrl;
     @Setter
     private String appId;
@@ -103,8 +105,9 @@ public class ShowQrCodeController implements Initializable {
     private CommonService commonService;
 
     private ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    private String orderId = "";
     private ScheduledFuture<?> scheduledFuture;
+    @Getter
+    private OrderInfo currentOrder;
 
     @PostConstruct
     public void init() {
@@ -129,6 +132,7 @@ public class ShowQrCodeController implements Initializable {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onMessageEvent(OrderInfo orderInfo) {
         log.info("订单：{}", orderInfo);
+        this.currentOrder = orderInfo;
 
         Platform.runLater(()->{
             title.setText("请扫码支付" + orderInfo.getMoney() + "元");

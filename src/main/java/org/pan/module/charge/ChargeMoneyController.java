@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
 import lombok.Setter;
@@ -57,7 +58,7 @@ public class ChargeMoneyController implements Initializable {
         Application.showView(MainStageView.class);
     }
 
-    public void money(ActionEvent actionEvent) {
+    public void money(MouseEvent actionEvent) {
         Node node = (Node) actionEvent.getSource();
         String money = (String) node.getUserData();
         log.debug("选择充值金额:{}", money);
@@ -112,9 +113,9 @@ public class ChargeMoneyController implements Initializable {
 
             button.setPrefHeight(80);
             button.setPrefWidth(150);
-            button.setOnAction(new EventHandler<ActionEvent>() {
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(ActionEvent event) {
+                public void handle(MouseEvent event) {
                     money(event);
                 }
             });

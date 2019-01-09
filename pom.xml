@@ -11,6 +11,8 @@
         <java.version>1.8</java.version>
         <bootstrapfx-core.version>0.2.4</bootstrapfx-core.version>
         <springboot-javafx-support.version>2.1.6</springboot-javafx-support.version>
+        <testfx.version>4.0.5-alpha</testfx.version>
+        <monocle.version>8u20-b26</monocle.version>
     </properties>
 
     <parent>
@@ -56,6 +58,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
@@ -93,6 +100,26 @@
             <groupId>org.eclipse.paho</groupId>
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
             <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-core</artifactId>
+            <version>${testfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit</artifactId>
+            <version>${testfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <version>${monocle.version}</version>
         </dependency>
     </dependencies>
 

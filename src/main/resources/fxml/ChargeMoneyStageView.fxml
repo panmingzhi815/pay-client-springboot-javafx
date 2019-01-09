@@ -140,7 +140,8 @@
                                 <Insets bottom="10.0" left="50.0" top="30.0"/>
                             </padding>
                         </FlowPane>
-                        <FlowPane fx:id="buttons" hgap="50.0" layoutX="10.0" layoutY="275.0" prefHeight="200.0"
+                        <FlowPane fx:id="buttons" id="buttons" hgap="50.0" layoutX="10.0" layoutY="275.0"
+                                  prefHeight="200.0"
                                   prefWidth="200.0"
                                   style="-fx-background-color: #ffffff; -fx-background-radius: 0 0 20px 20px;"
                                   vgap="30.0">
