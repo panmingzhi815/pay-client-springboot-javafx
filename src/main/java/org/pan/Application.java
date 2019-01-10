@@ -4,6 +4,7 @@ import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 import de.felixroske.jfxsupport.FXMLView;
 import de.felixroske.jfxsupport.GUIState;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.Lighting;
@@ -118,19 +119,22 @@ public class Application extends AbstractJavaFxApplicationSupport {
                 bus.post(new ViewEvent(ViewEvent.ViewEvenType.hide, fromViewer, fromViewer.getPresenter()));
             }
 
-            AbstractJavaFxApplicationSupport.showView(to);
+            Platform.runLater(()->{
+                AbstractJavaFxApplicationSupport.showView(to);
+                if (bus.isRegistered(toViewer.getPresenter())) {
+                    log.debug("发布显示事件");
+                    bus.post(new ViewEvent(ViewEvent.ViewEvenType.show, toViewer, toViewer.getPresenter()));
+                }
 
-            if (bus.isRegistered(toViewer.getPresenter())) {
-                log.debug("发布显示事件");
-                bus.post(new ViewEvent(ViewEvent.ViewEvenType.show, toViewer, toViewer.getPresenter()));
-            }
+                if (object != null) {
+                    log.debug("跳转参数:{}", object);
+                    bus.post(object);
+                }
 
-            if (object != null) {
-                log.debug("跳转参数:{}", object);
-                bus.post(object);
-            }
+                log.debug("跳转页面耗时:{}", started.getTime());
+            });
 
-            log.debug("跳转页面耗时:{}", started.getTime());
+
         } catch (Exception e) {
             log.error("跳转页面异常",e);
         }

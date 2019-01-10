@@ -177,6 +177,7 @@ public class ShowQrCodeController implements Initializable {
                     }
                     Optional<String> orderIdOptional = Optional.ofNullable(jsonObject.getJSONObject("data")).map(m -> m.getString("orderId"));
                     if (!orderIdOptional.isPresent()) {
+                        this.currentOrder = null;
                         updateState(errorImage, "生成云平台支付订单失败");
                         return;
                     }
@@ -209,6 +210,7 @@ public class ShowQrCodeController implements Initializable {
 
     public void updateState(Image flagImage, String tip) {
         Platform.runLater(() -> {
+            log.info(tip);
             tradeNO.setText(tip);
             qrcode.setImage(flagImage);
         });
@@ -228,7 +230,8 @@ public class ShowQrCodeController implements Initializable {
                 if (!Optional.ofNullable(jsonObject.getString("resultCode")).orElse("").equals("0000")) {
                     return;
                 }
-                if (!Optional.ofNullable(jsonObject.getJSONObject("data")).map(m -> m.getString("orderState")).orElse("").equals("1")) {
+                String orderState = Optional.ofNullable(jsonObject.getJSONObject("data")).map(m -> m.getString("orderState")).orElse("");
+                if (!orderState.equals("1") && !orderState.equals("2")) {
                     return;
                 }
 

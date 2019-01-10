@@ -60,61 +60,98 @@ public class GuiTest {
         TimeOutViewManager bean = Application.context.getBean(TimeOutViewManager.class);
 
         while (true) {
-            while (GUIState.getScene().getRoot() != mainStageView.getView()) {
+            if (GUIState.getScene().getRoot() == mainStageView.getView()) {
+                log.info("界面:{}", MainStageView.class);
                 TimeUnit.SECONDS.sleep(3);
+
+                Platform.runLater(() -> {
+                    log.info("自动选择自助充值");
+                    Node lookup = mainStageView.getView().lookup("#btn_charge");
+                    MouseEvent event = new MouseEvent(MouseEvent.MOUSE_CLICKED,
+                            0d, 0d, 0d, 0d, MouseButton.PRIMARY, 1,
+                            true, true, true, true, true, true, true, true, true, true, null);
+                    Event.fireEvent(lookup, event);
+                });
+
+                TimeUnit.SECONDS.sleep(3);
+
+                continue;
             }
 
-            Platform.runLater(() -> {
-                Node lookup = mainStageView.getView().lookup("#btn_charge");
-                MouseEvent event = new MouseEvent(MouseEvent.MOUSE_CLICKED,
-                        0d, 0d, 0d, 0d, MouseButton.PRIMARY, 1,
-                        true, true, true, true, true, true, true, true, true, true, null);
-                Event.fireEvent(lookup, event);
-            });
 
-            while (GUIState.getScene().getRoot() != chargeReadCardStageView.getView()) {
+            if (GUIState.getScene().getRoot() == chargeReadCardStageView.getView()) {
+                log.info("界面:{}", ChargeReadCardStageView.class);
                 TimeUnit.SECONDS.sleep(3);
+
+                Platform.runLater(() -> {
+                    log.info("自动刷卡 123");
+                    Node lookup = chargeReadCardStageView.getView().lookup("#root");
+                    KeyEvent keyEvent1 = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT1, false, false, false, false);
+                    KeyEvent keyEvent2 = new KeyEvent(KeyEvent.KEY_PRESSED, "2", "2", KeyCode.DIGIT2, false, false, false, false);
+                    KeyEvent keyEvent3 = new KeyEvent(KeyEvent.KEY_PRESSED, "3", "3", KeyCode.DIGIT3, false, false, false, false);
+                    KeyEvent keyEvent4 = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.ENTER, false, false, false, false);
+                    Event.fireEvent(lookup, keyEvent1);
+                    Event.fireEvent(lookup, keyEvent2);
+                    Event.fireEvent(lookup, keyEvent3);
+                    Event.fireEvent(lookup, keyEvent4);
+                });
+
+                TimeUnit.SECONDS.sleep(3);
+
+                continue;
             }
 
-            Platform.runLater(() -> {
-                Node lookup = chargeReadCardStageView.getView().lookup("#root");
-                KeyEvent keyEvent1 = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT1, false, false, false, false);
-                KeyEvent keyEvent2 = new KeyEvent(KeyEvent.KEY_PRESSED, "2", "2", KeyCode.DIGIT2, false, false, false, false);
-                KeyEvent keyEvent3 = new KeyEvent(KeyEvent.KEY_PRESSED, "3", "3", KeyCode.DIGIT3, false, false, false, false);
-                KeyEvent keyEvent4 = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.ENTER, false, false, false, false);
-                Event.fireEvent(lookup, keyEvent1);
-                Event.fireEvent(lookup, keyEvent2);
-                Event.fireEvent(lookup, keyEvent3);
-                Event.fireEvent(lookup, keyEvent4);
-            });
-
-            while (GUIState.getScene().getRoot() != chargeMoneyStageView.getView()) {
-                TimeUnit.SECONDS.sleep(3);
+            if (GUIState.getScene().getRoot() == chargeSuccessStageView.getView()) {
+                log.info("界面:{}", ChargeSuccessStageView.class);
+                bean.setCurrentLeft(5);
+                log.info("缴费成功");
+                TimeUnit.SECONDS.sleep(6);
+                continue;
             }
 
-            Platform.runLater(() -> {
-                FlowPane lookup = (FlowPane) chargeMoneyStageView.getView().lookup("#buttons");
-                MouseEvent event = new MouseEvent(MouseEvent.MOUSE_CLICKED,
-                        0d, 0d, 0d, 0d, MouseButton.PRIMARY, 1,
-                        true, true, true, true, true, true, true, true, true, true, null);
-                Event.fireEvent(lookup.getChildren().get(0), event);
-            });
-
-            while (!Optional.ofNullable(showQrCodeStageView).map(m -> m.getView()).map(m -> m.getScene()).map(m -> m.getWindow()).map(m -> m.isShowing()).orElse(false)) {
+            if (Optional.ofNullable(showQrCodeStageView).map(m -> m.getView()).map(m -> m.getScene()).map(m -> m.getWindow()).map(m -> m.isShowing()).orElse(false)) {
+                log.info("界面:{}", ShowQrCodeStageView.class);
                 TimeUnit.SECONDS.sleep(3);
+
+                ShowQrCodeController presenter = (ShowQrCodeController) showQrCodeStageView.getPresenter();
+                OrderInfo currentOrder = presenter.getCurrentOrder();
+
+                if (currentOrder == null) {
+                    log.info("订单为空，取消缴费");
+                    presenter.close(null);
+                    TimeUnit.SECONDS.sleep(3);
+                    Application.switchView(ShowQrCodeStageView.class, MainStageView.class, null);
+                    TimeUnit.SECONDS.sleep(3);
+                    continue;
+                }
+
+                while (!updateCurrentOrder(currentOrder)) {
+                    TimeUnit.SECONDS.sleep(3);
+                    continue;
+                }
+
+                continue;
             }
 
-            ShowQrCodeController presenter = (ShowQrCodeController) showQrCodeStageView.getPresenter();
-            OrderInfo currentOrder = presenter.getCurrentOrder();
-            while (!updateCurrentOrder(currentOrder)) {
+            if (GUIState.getScene().getRoot() == chargeMoneyStageView.getView()) {
+                log.info("界面:{}", ChargeMoneyStageView.class);
                 TimeUnit.SECONDS.sleep(3);
+
+                Platform.runLater(() -> {
+                    log.info("触发充值按钮");
+                    FlowPane lookup = (FlowPane) chargeMoneyStageView.getView().lookup("#buttons");
+                    MouseEvent event = new MouseEvent(MouseEvent.MOUSE_CLICKED,
+                            0d, 0d, 0d, 0d, MouseButton.PRIMARY, 1,
+                            true, true, true, true, true, true, true, true, true, true, null);
+                    Event.fireEvent(lookup.getChildren().get(0), event);
+                });
+
+                TimeUnit.SECONDS.sleep(3);
+
+                continue;
             }
 
-            while (GUIState.getScene().getRoot() != chargeSuccessStageView.getView()) {
-                TimeUnit.SECONDS.sleep(3);
-            }
 
-            bean.setCurrentLeft(5);
         }
 
     }

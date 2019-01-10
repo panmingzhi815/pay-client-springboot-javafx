@@ -22,7 +22,7 @@ spring:
 
 dongyun:
   moneys:  [0.01,30,50,100,200,300]
-  buildingId: 36ea129620e6435587ebcc2ac7332783
+  buildingId: 7e257819d2764bb6aa5c1fd43baf2f71
   serverUrl:  http://pay.dongluhitec.net
   appId:  1
   appSecret:  1

@@ -14,11 +14,15 @@
         </encoder>
     </appender>
 
-    <logger name="org.pan" level="INFO">
-        <appender-ref ref="RollingFileAppender"/>
-    </logger>
+    <!--<logger name="org.pan" level="INFO">-->
+    <!--<appender-ref ref="RollingFileAppender"/>-->
+    <!--</logger>-->
 
-    <logger name="org.pan" level="DEBUG">
+    <!--<logger name="org.pan" level="INFO">-->
+    <!--<appender-ref ref="ConsoleAppender"/>-->
+    <!--</logger>-->
+
+    <logger name="de.felixroske" level="DEBUG">
         <appender-ref ref="ConsoleAppender"/>
     </logger>
 
