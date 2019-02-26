@@ -108,6 +108,7 @@ public class ShowQrCodeController implements Initializable {
     private ScheduledFuture<?> scheduledFuture;
     @Getter
     private OrderInfo currentOrder;
+    private int payWaitTimes = 0;
 
     @PostConstruct
     public void init() {
@@ -190,7 +191,7 @@ public class ShowQrCodeController implements Initializable {
                     @Cleanup FileInputStream fileInputStream = new FileInputStream(file);
                     Image image = new Image(fileInputStream);
                     updateState(image, "请使用微信或支付宝扫码充值");
-
+                    payWaitTimes = 100;
                     scheduledFuture = scheduledExecutor.scheduleWithFixedDelay(() -> {
                         checkOrderStatu(orderInfo.getOrderId());
                     }, 5000, 1000, TimeUnit.MILLISECONDS);
@@ -231,6 +232,20 @@ public class ShowQrCodeController implements Initializable {
                     return;
                 }
                 String orderState = Optional.ofNullable(jsonObject.getJSONObject("data")).map(m -> m.getString("orderState")).orElse("");
+                if (orderState.equals("3")) {
+                    Platform.runLater(()->{
+                        if(payWaitTimes <= 0){
+                            close.setDisable(false);
+                            close.setText("取消支付");
+                        }else{
+                            payWaitTimes --;
+                            close.setText("正在查询支付状态,请稍候...(" + payWaitTimes + ")");
+                            close.setDisable(true);
+                        }
+                    });
+                    return;
+                }
+
                 if (!orderState.equals("1") && !orderState.equals("2")) {
                     return;
                 }
