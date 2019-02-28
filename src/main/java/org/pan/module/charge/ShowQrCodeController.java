@@ -283,27 +283,4 @@ public class ShowQrCodeController implements Initializable {
         }
     }
 
-    public void secret(List<NameValuePair> nameValuePairList) {
-//        nameValuePairList.sort(new Comparator<NameValuePair>() {
-//            @Override
-//            public int compare(NameValuePair o1, NameValuePair o2) {
-//                return o1.getName().charAt(0) - o2.getName().charAt(0);
-//            }
-//        });
-//        Optional<String> reduce = nameValuePairList.stream().sorted(new Comparator<NameValuePair>() {
-//            @Override
-//            public int compare(NameValuePair o1, NameValuePair o2) {
-//                return o1.getName().compareTo(o2.getName());
-//            }
-//        }).map(m -> m.getName() + "=" + m.getValue()).reduce(new BinaryOperator<String>() {
-//            @Override
-//            public String apply(String s, String s2) {
-//                return s + s2;
-//            }
-//        });
-//        if(reduce.isPresent()){
-//            String bytes = DigestUtils.md5Hex(reduce.get() + appSecret);
-//            nameValuePairList.add(new BasicNameValuePair("sign",bytes));
-//        }
-    }
 }

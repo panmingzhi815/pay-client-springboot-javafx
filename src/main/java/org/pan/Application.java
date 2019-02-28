@@ -174,9 +174,9 @@ public class Application extends AbstractJavaFxApplicationSupport {
     @Bean
     public RequestConfig requestConfig(){
         return RequestConfig.custom()
-                .setSocketTimeout(8000)
-                .setConnectTimeout(8000)
-                .setConnectionRequestTimeout(8000).build();
+                .setSocketTimeout(3000)
+                .setConnectTimeout(3000)
+                .setConnectionRequestTimeout(3000).build();
     }
 
 }
