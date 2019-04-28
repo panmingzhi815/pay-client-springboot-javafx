@@ -62,11 +62,14 @@ public class CommonService {
     @Transactional(rollbackOn = Exception.class)
     public void saveAndUpdate(String orderId) throws IOException {
         OrderInfo byOrOrderId = orderInfoRepository.findByOrOrderId(orderId);
+        if(byOrOrderId.getOrderSuccess() != null && byOrOrderId.getOrderSuccess()){
+            return;
+        }
         byOrOrderId.setOrderSuccess(true);
         orderInfoRepository.save(byOrOrderId);
 
         CardUser byIdentifier = cardUserRepository.findByIdentifier(byOrOrderId.getUserNO());
-        List<ConsumptionWallet> consumptionWallets = Optional.ofNullable(byIdentifier).map(m -> m.getWalletList()).orElse(Arrays.asList());
+        List<ConsumptionWallet> consumptionWallets = Optional.ofNullable(byIdentifier).map(CardUser::getWalletList).orElse(Arrays.asList());
         Optional<ConsumptionWallet> first = consumptionWallets.stream().filter(f -> f.getName().equals("充值")).findFirst();
         if(!first.isPresent()){
             throw new IOException("未找到用户的充值钱包");

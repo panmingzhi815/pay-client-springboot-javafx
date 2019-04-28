@@ -23,7 +23,7 @@ spring:
 dongyun:
   moneys:  [0.01,30,50,100,200,300]
   buildingId: 7e257819d2764bb6aa5c1fd43baf2f71
-  serverUrl:  http://pay.dongluhitec.net
+  serverUrl:  http://www.dongluhitec.net
   appId:  1
   appSecret:  1
   mqttServer: tcp://mqtt.dongluhitec.net:1883
@@ -31,4 +31,4 @@ dongyun:
   mqttPassword: smart@512809
   serviceTel: 0755-26992770
   deviceName: TEST1001
-  deviceVersion:  19010711
+  deviceVersion:  19022814
